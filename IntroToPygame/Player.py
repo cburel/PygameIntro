@@ -55,8 +55,7 @@ class Player():
 				self.pos.x -= self.vel.x
 			if keyPressed[pygame.K_d]:
 				self.pos.x += self.vel.x
-
-			self.pos += self.vel
+				
 			print("Pos: " + str(self.pos))
 			print("Vel: " + str(self.vel))
 
