@@ -24,9 +24,9 @@ class Player():
 		# draw debug line
 		lineStartX = self.pos.x + self.size/2
 		lineStartY = self.pos.y + self.size/2
-		lineEndX= (self.pos.x + self.size/2) + self.vel.x
+		lineEndX = (self.pos.x + self.size/2) + self.vel.x
 		lineEndY = (self.pos.y + self.size/2) + self.vel.y
-		Vector.scale(pygame.draw.line(screen, (255, 0, 0), (lineStartX, lineStartY), (lineEndX, lineEndY), 3), self.size)
+		pygame.draw.line(screen, (255, 0, 0), (lineStartX, lineStartY), (lineEndX, lineEndY), 3)
 
 
 	# event handler
@@ -43,18 +43,17 @@ class Player():
 				pygame.quit()
 				quit()
 
-			# normalize velocity
-			Vector.normalize(self.vel)
-
 			#movement
 			if keyPressed[pygame.K_w]:
-				self.pos.y -= self.vel.y
+				self.vel -= Vector.normalize(Vector(0, self.vel.y))
 			if keyPressed[pygame.K_s]:
-				self.pos.y += self.vel.y
+				self.vel += Vector.normalize(Vector(0, self.vel.y))
 			if keyPressed[pygame.K_a]:
-				self.pos.x -= self.vel.x
+				self.vel -= Vector.normalize(Vector(self.vel.x, 0))
 			if keyPressed[pygame.K_d]:
-				self.pos.x += self.vel.x
+				self.vel += Vector.normalize(Vector(self.vel.x, 0))
+
+			self.pos = self.vel
 				
 			print("Pos: " + str(self.pos))
 			print("Vel: " + str(self.vel))
