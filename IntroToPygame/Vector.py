@@ -23,7 +23,7 @@ class Vector():
 
 	#scales the vector by a float and returns scaled vector
 	def scale(self, scalar):
-		return (self.x * scalar, self.y * scalar)
+		return Vector(self.x * scalar, self.y * scalar)
 
 	#returns the length (magnitude) of a vector
 	def length(self):

@@ -24,8 +24,9 @@ class Player():
 		# draw debug line
 		lineStartX = self.pos.x + self.size/2
 		lineStartY = self.pos.y + self.size/2
-		lineEndX = (self.pos.x + self.size/2) + self.vel.x
-		lineEndY = (self.pos.y + self.size/2) + self.vel.y
+		scaledVel = Vector.scale(self.vel, self.size)
+		lineEndX = (self.pos.x + self.size/2) + scaledVel.x
+		lineEndY = (self.pos.y + self.size/2) + scaledVel.y
 		pygame.draw.line(screen, (255, 0, 0), (lineStartX, lineStartY), (lineEndX, lineEndY), 3)
 
 
@@ -45,19 +46,19 @@ class Player():
 				quit()
 
 			#movement
-			if keyPressed[pygame.K_w]:
-				self.vel -= Vector(0, spd)
-			if keyPressed[pygame.K_s]:
-				self.vel += Vector(0, spd)
-			if keyPressed[pygame.K_a]:
-				self.vel -= Vector(spd, 0)
-			if keyPressed[pygame.K_d]:
-				self.vel += Vector(spd, 0)
-
-			self.pos += Vector.normalize(self.vel)
+			if any(keyPressed):
 				
-			print("Pos: " + str(self.pos))
-			print("Vel: " + str(self.vel))
+				if keyPressed[pygame.K_w]: #move up
+					self.vel -= Vector(0, spd)
+				if keyPressed[pygame.K_s]: #move down
+					self.vel += Vector(0, spd)
+				if keyPressed[pygame.K_a]: #move left
+					self.vel -= Vector(spd, 0)
+				if keyPressed[pygame.K_d]: #move right
+					self.vel += Vector(spd, 0)
+				
+				self.vel = Vector.normalize(self.vel)
+				self.pos += Vector.normalize(self.vel)
 
 			#flip display buffer
 			pygame.display.flip()
