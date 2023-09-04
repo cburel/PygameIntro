@@ -34,6 +34,7 @@ class Player():
 
 		#setup
 		keyPressed = pygame.key.get_pressed()
+		spd = 1
 
 		# event loop
 		for event in pygame.event.get():
@@ -45,15 +46,15 @@ class Player():
 
 			#movement
 			if keyPressed[pygame.K_w]:
-				self.vel -= Vector.normalize(Vector(0, self.vel.y))
+				self.vel -= Vector(0, spd)
 			if keyPressed[pygame.K_s]:
-				self.vel += Vector.normalize(Vector(0, self.vel.y))
+				self.vel += Vector(0, spd)
 			if keyPressed[pygame.K_a]:
-				self.vel -= Vector.normalize(Vector(self.vel.x, 0))
+				self.vel -= Vector(spd, 0)
 			if keyPressed[pygame.K_d]:
-				self.vel += Vector.normalize(Vector(self.vel.x, 0))
+				self.vel += Vector(spd, 0)
 
-			self.pos = self.vel
+			self.pos += Vector.normalize(self.vel)
 				
 			print("Pos: " + str(self.pos))
 			print("Vel: " + str(self.vel))
